@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.practice.test_mobile.databinding.FragmentViewEmployeeBinding
+import com.practice.test_mobile.ui.viewmodel.EmployeeViewModel
 
 /**
     Fragment to see each employee information
@@ -13,6 +15,10 @@ import com.practice.test_mobile.databinding.FragmentViewEmployeeBinding
 class ViewEmployeeFragment : Fragment() {
 
     private lateinit var binding: FragmentViewEmployeeBinding
+    private val employeeViewModel: EmployeeViewModel by activityViewModels{
+        EmployeeViewModel.Factory
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
