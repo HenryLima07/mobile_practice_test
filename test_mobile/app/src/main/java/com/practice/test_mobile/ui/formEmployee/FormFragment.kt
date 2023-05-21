@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.practice.test_mobile.R
 import com.practice.test_mobile.databinding.FragmentFormBinding
+import com.practice.test_mobile.ui.viewmodel.EmployeeViewModel
 
 
 /**
@@ -14,6 +16,9 @@ import com.practice.test_mobile.databinding.FragmentFormBinding
  */
 class FormFragment : Fragment() {
     private lateinit var binding: FragmentFormBinding
+    private val employeeViewModel: EmployeeViewModel by activityViewModels{
+        EmployeeViewModel.Factory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
