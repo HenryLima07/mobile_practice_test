@@ -1,13 +1,11 @@
 package com.practice.test_mobile.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.practice.test_mobile.Data.Model.EmployeeModel
-import com.practice.test_mobile.R
 import com.practice.test_mobile.databinding.FragmentMainBinding
 import com.practice.test_mobile.ui.viewmodel.EmployeeViewModel
 
