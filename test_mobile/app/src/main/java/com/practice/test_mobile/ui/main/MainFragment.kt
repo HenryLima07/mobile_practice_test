@@ -6,6 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.practice.test_mobile.Data.Adapter.EmployeeRecyclerViewAdapter
+import com.practice.test_mobile.Data.Model.EmployeeModel
+import com.practice.test_mobile.R
 import com.practice.test_mobile.databinding.FragmentMainBinding
 import com.practice.test_mobile.ui.viewmodel.EmployeeViewModel
 
@@ -16,6 +23,9 @@ import com.practice.test_mobile.ui.viewmodel.EmployeeViewModel
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private lateinit var recyclerViewEmployee: RecyclerView
+    private lateinit var adapter: EmployeeRecyclerViewAdapter
+
     private val employeeViewModel: EmployeeViewModel by activityViewModels{
         EmployeeViewModel.Factory
     }
@@ -32,4 +42,38 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        listeners()
+        recyclerView(view)
+    }
+
+    private fun listeners() {
+        binding.btnAddEmployee.setOnClickListener{
+            employeeViewModel.clearData()
+            it.findNavController().navigate(R.id.action_mainFragment3_to_formFragment)
+        }
+    }
+
+    private fun showSelectedItem(employee: EmployeeModel){
+        employeeViewModel.setSelectedEmployee(employee)
+        findNavController().navigate(R.id.action_mainFragment3_to_viewEmployeeFragment)
+    }
+
+    private fun displayEmployees(){
+        adapter.setData(employeeList = employeeViewModel.getEmployees())
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun recyclerView(view: View){
+        binding.recyleViewEmployee.layoutManager = LinearLayoutManager(view.context)
+
+        adapter = EmployeeRecyclerViewAdapter { selectedEmployee ->
+            showSelectedItem(selectedEmployee)
+        }
+
+        binding.recyleViewEmployee.adapter = adapter
+        displayEmployees()
+    }
 }

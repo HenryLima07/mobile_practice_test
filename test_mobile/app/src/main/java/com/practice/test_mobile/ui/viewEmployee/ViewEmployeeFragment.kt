@@ -32,4 +32,13 @@ class ViewEmployeeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setViewModel()
+    }
+    private fun setViewModel(){
+        binding.viewmodel = employeeViewModel
+    }
+
 }
