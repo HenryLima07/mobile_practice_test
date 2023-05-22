@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,15 +26,10 @@ import com.practice.test_mobile.ui.viewmodel.EmployeeViewModel
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var recyclerViewEmployee: RecyclerView
     private lateinit var adapter: EmployeeRecyclerViewAdapter
 
     private val employeeViewModel: EmployeeViewModel by activityViewModels{
         EmployeeViewModel.Factory
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -44,6 +42,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                onBackPressed()
+            }
+        })
 
         listeners()
         recyclerView(view)
@@ -75,5 +79,16 @@ class MainFragment : Fragment() {
 
         binding.recyleViewEmployee.adapter = adapter
         displayEmployees()
+    }
+
+
+    private fun onBackPressed(){
+        val navController = Navigation.findNavController(requireView())
+        val toast = Toast.makeText(requireContext(), "works", Toast.LENGTH_SHORT)
+        toast.show()
+        if(navController.currentDestination?.id != R.id.mainFragment3){
+            navController.popBackStack()
+        }
+        else requireActivity().onBackPressed()
     }
 }
