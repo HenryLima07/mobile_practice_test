@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.practice.test_mobile.Data.Model.EmployeeModel
 import com.practice.test_mobile.databinding.FragmentItemEmployeeBinding
-import com.practice.test_mobile.databinding.FragmentViewEmployeeBinding
 
 class EmployeeRecyclerViewAdapter(
     private val clickListener: (EmployeeModel) -> Unit
